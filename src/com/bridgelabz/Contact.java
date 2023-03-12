@@ -1,6 +1,4 @@
 package com.bridgelabz;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 public class Contact {
     private String name;
@@ -13,14 +11,8 @@ public class Contact {
         this.email = email;
     }
 
-    // Getters and setters for name, phone, and email
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getPhone() {
@@ -39,41 +31,66 @@ public class Contact {
         this.email = email;
     }
 }
-class AddressBook {
-    private List<Contact> contacts;
+ class AddressBook {
+    private Contact[] contacts;
+    private int size;
 
-    public AddressBook() {
-        this.contacts = new ArrayList<>();
+    public AddressBook(int capacity) {
+        this.contacts = new Contact[capacity];
+        this.size = 0;
     }
 
     public void addContact(Contact contact) {
-        contacts.add(contact);
+        if (size == contacts.length) {
+            System.out.println("Address book is full.");
+        } else {
+            contacts[size] = contact;
+            size++;
+        }
     }
 
     public void displayContacts() {
-        for (Contact contact : contacts) {
+        for (int i = 0; i < size; i++) {
+            Contact contact = contacts[i];
             System.out.println(contact.getName() + ", " + contact.getPhone() + ", " + contact.getEmail());
         }
+    }
+
+    public void updateContact(String name) {
+        for (int i = 0; i < size; i++) {
+            Contact contact = contacts[i];
+            if (contact.getName().equalsIgnoreCase(name)) {
+                Scanner scanner = new Scanner(System.in);
+
+                System.out.print("Enter new phone number: ");
+                String phone = scanner.nextLine();
+                contact.setPhone(phone);
+
+                System.out.print("Enter new email: ");
+                String email = scanner.nextLine();
+                contact.setEmail(email);
+
+                System.out.println("Contact updated successfully.");
+                return;
+            }
+        }
+        System.out.println("Contact not found.");
     }
 }
 class AddressBookMain {
     public static void main(String[] args) {
-        AddressBook addressBook = new AddressBook();
+        AddressBook addressBook = new AddressBook(10);
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter name: ");
+        // Add some contacts to the address book for testing
+        addressBook.addContact(new Contact("John Doe", "1234567890", "johndoe@example.com"));
+        addressBook.addContact(new Contact("Jane Smith", "0987654321", "janesmith@example.com"));
+
+        System.out.print("Enter name of contact to update: ");
         String name = scanner.nextLine();
 
-        System.out.print("Enter phone number: ");
-        String phone = scanner.nextLine();
-
-        System.out.print("Enter email: ");
-        String email = scanner.nextLine();
-
-        Contact contact = new Contact(name, phone, email);
-        addressBook.addContact(contact);
+        addressBook.updateContact(name);
 
         addressBook.displayContacts();
     }
 }
-
