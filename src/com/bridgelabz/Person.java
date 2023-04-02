@@ -1,27 +1,17 @@
 package com.bridgelabz;
 public class Person {
-        private String name;
-        private String email;
-        private String phone;
-        public Person(String name, String email, String phone) {
-            this.name = name;
-            this.email = email;
-            this.phone = phone;
-        }
-        public String getName() {
-            return name;
-        }
-        public String getEmail() {
-            return email;
-        }
-        public String getPhone() {
-            return phone;
-        }
-        public void setEmail(String email) {
-            this.email = email;
-        }
-        public void setPhone(String phone) {
-            this.phone = phone;
-        }
-        // Other methods for comparing and displaying Person objects
+    private String name;
+    private String address;
+    private String phone;
+
+    public Person(String name, String address, String phone) {
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
     }
+
+    @Override
+    public String toString() {
+        return "Name: " + name + ", Address: " + address + ", Phone: " + phone;
+    }
+}

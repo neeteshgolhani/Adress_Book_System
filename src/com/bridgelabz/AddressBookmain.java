@@ -1,18 +1,39 @@
 package com.bridgelabz;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class AddressBookmain {
     public static void main(String[] args) {
         System.out.println("Welcome to Address Book Program!");
-        AddressBook addressBook = new AddressBook();
-        // Add some sample contacts
-        addressBook.addPerson(new Person("Alice", "alice@example.com", "1234567890"));
-        addressBook.addPerson(new Person("Bob", "bob@example.com", "2345678901"));
-        addressBook.addPerson(new Person("Charlie", "charlie@example.com", "3456789012"));
-        // Delete a contact
-        addressBook.deletePerson("Bob");
-        // Display remaining contacts
-        addressBook.displayContacts();
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Person> addressBook = new ArrayList<>();
+        String name, address, phone;
+
+        // Loop to add multiple persons
+        while (true) {
+            System.out.println("Enter name (or 'quit' to exit):");
+            name = scanner.nextLine();
+            if (name.equals("quit")) {
+                break;
+            }
+
+            System.out.println("Enter address:");
+            address = scanner.nextLine();
+
+            System.out.println("Enter phone number:");
+            phone = scanner.nextLine();
+
+            // Create a new Person object and add it to the address book
+            Person person = new Person(name, address, phone);
+            addressBook.add(person);
+
+            System.out.println("Person added to address book.");
+        }
+
+        // Print all persons in the address book
+        for (Person person : addressBook) {
+            System.out.println(person);
+        }
     }
 }
