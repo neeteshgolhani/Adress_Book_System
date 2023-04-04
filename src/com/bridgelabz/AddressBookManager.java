@@ -6,28 +6,23 @@ import java.util.List;
 import java.util.ArrayList;
 public class AddressBookManager {
 
-    private Map<String, List<Person>> personsByCity;
-    private Map<String, List<Person>> personsByState;
+    private List<AddressBook> addressBooks;
 
-    public AddressBookManager() {
-        personsByCity = new HashMap<>();
-        personsByState = new HashMap<>();
+    public AddressBookManager(List<AddressBook> addressBooks) {
+        this.addressBooks = addressBooks;
     }
 
-    public void addAddressBook(AddressBook addressBook) {
-        List<Person> persons = addressBook.getPersons();
-        persons.forEach(person -> {
-            personsByCity.computeIfAbsent(person.getCity(), k -> new ArrayList<>()).add(person);
-            personsByState.computeIfAbsent(person.getState(), k -> new ArrayList<>()).add(person);
-        });
+    public long getCountByCity(String city) {
+        return addressBooks.stream()
+                .flatMap(addressBook -> addressBook.getPersons().stream())
+                .filter(person -> person.getCity().equalsIgnoreCase(city))
+                .count();
     }
 
-    public List<Person> getPersonsByCity(String city) {
-        return personsByCity.getOrDefault(city, Collections.emptyList());
+    public long getCountByState(String state) {
+        return addressBooks.stream()
+                .flatMap(addressBook -> addressBook.getPersons().stream())
+                .filter(person -> person.getState().equalsIgnoreCase(state))
+                .count();
     }
-
-    public List<Person> getPersonsByState(String state) {
-        return personsByState.getOrDefault(state, Collections.emptyList());
-    }
-
 }

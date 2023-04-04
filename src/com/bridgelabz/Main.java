@@ -1,6 +1,5 @@
 package com.bridgelabz;
 import java.util.Arrays;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,18 +18,14 @@ public class Main {
         ));
 
         // create an address book manager and add the sample address books
-        AddressBookManager addressBookManager = new AddressBookManager();
-        addressBookManager.addAddressBook(addressBook1);
-        addressBookManager.addAddressBook(addressBook2);
+        AddressBookManager addressBookManager = new AddressBookManager(Arrays.asList(addressBook1, addressBook2));
 
-        // view persons by city
-        List<Person> personsInChicago = addressBookManager.getPersonsByCity("Chicago");
-        System.out.println("Persons in Chicago:");
-        personsInChicago.forEach(person -> System.out.println(person.getName()));
+        // get count by city
+        long countInChicago = addressBookManager.getCountByCity("Chicago");
+        System.out.println("Number of persons in Chicago: " + countInChicago);
 
-        // view persons by state
-        List<Person> personsInCA = addressBookManager.getPersonsByState("CA");
-        System.out.println("Persons in California:");
-        personsInCA.forEach(person -> System.out.println(person.getName()));
+        // get count by state
+        long countInCA = addressBookManager.getCountByState("CA");
+        System.out.println("Number of persons in California: " + countInCA);
     }
 }
