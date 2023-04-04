@@ -1,15 +1,14 @@
 package com.bridgelabz;
-import java.util.HashSet;
+import java.util.List;
 
 public class AddressBook {
-    private HashSet<String> names = new HashSet<>();
+        private List<Person> persons;
 
-    public void addPerson(String name) {
-        if (names.contains(name)) {
-            System.out.println(name + " already exists in the address book.");
-        } else {
-            names.add(name);
-            System.out.println(name + " added to the address book.");
+        public AddressBook(List<Person> persons) {
+            this.persons = persons;
+        }
+
+        public List<Person> getPersons() {
+            return persons;
         }
     }
-}
