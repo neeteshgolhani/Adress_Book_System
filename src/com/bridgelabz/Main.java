@@ -18,12 +18,19 @@ public class Main {
                 new Person("David Lee", "Boston", "MA")
         ));
 
-        // search for persons in a specific city or state across all address books
-        List<AddressBook> addressBooks = Arrays.asList(addressBook1, addressBook2);
-        List<Person> searchResult = AddressBookSearch.search(addressBooks, "Chicago");
+        // create an address book manager and add the sample address books
+        AddressBookManager addressBookManager = new AddressBookManager();
+        addressBookManager.addAddressBook(addressBook1);
+        addressBookManager.addAddressBook(addressBook2);
 
-        // print the search result
-        System.out.println("Search result:");
-        searchResult.forEach(person -> System.out.println(person.getName()));
+        // view persons by city
+        List<Person> personsInChicago = addressBookManager.getPersonsByCity("Chicago");
+        System.out.println("Persons in Chicago:");
+        personsInChicago.forEach(person -> System.out.println(person.getName()));
+
+        // view persons by state
+        List<Person> personsInCA = addressBookManager.getPersonsByState("CA");
+        System.out.println("Persons in California:");
+        personsInCA.forEach(person -> System.out.println(person.getName()));
     }
 }
